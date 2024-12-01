@@ -1,0 +1,51 @@
+Criar Pendrive com Kali Persistente
+by: m3ss14s André Luiz Messias 14997911398
+30/11/2024 - Ourinhos-SP 
+
+Requisitos:
+Pendrive igual ou maior que 8GB, vou utilizar um de 64GB
+não enterrompa de forma alguma o processo de criação do pendrive bootavel depois que iniciar.
+
+Obtenha Imagem Kali via site oficial
+https://www.kali.org/get-kali/#kali-platforms
+
+Obtenha UUI Via site Oficial
+https://pendrivelinux.com/universal-usb-installer-easy-as-1-2-3/
+
+Obtenha partition magic via site oficial:
+https://www.partitionwizard.com
+
+1 - U U I Universal UBS Installer
+
+	1.1 -> Formate e crie o pendrive com o UUI, 
+	1.2 -> Step 1- Selecione Kali Linux
+	1.3 -> Step 2- Selecione a ISO do Kali
+	1.4 -> Marque a opção [wewill Fat32 Format]
+	1.5 -> Clique em Create
+
+2 - Particionar o pendrive com Mini Partition Tool
+
+	2.1 -> Instale e execute o Mini Partition Tool
+	2.2 -> localize a unidade do pendrive, selecione com o botão direito e selecione
+move/resize
+	2.3 -> Arraste a barra da direita para esquerda para definir o tamanho das partiçoes
+	2.4 -> Cliqe em aplicar e aguarde
+	2.5 -> Selecione o nova partição não alocada com o botão direito e clique em create 
+	2.6 -> Em Partition Label difina o nome da partição como: persistence [tudo minúsculo]
+	2.7 -> Altere o File System para Ext4
+	2.8 -> Clique em Apply e aguarde
+
+3 - Montar Partição Persistente
+	3.1 -> Configure o BIOS para dar boot do pendrive.
+	3.2 -> Ao iniciar o Grub Selecione Live USB Persistence
+	3.3 -> Assim que o sistema carregar abra o terminal e digite #fdisk -l
+	3.4 -> Identifique as partições ex: /dev/sdb1* - /dev/sdb2
+	3.5 -> Execute os comandos: #mkdir -p /mnt/UUI (criar diretório para ponto de montagem) 
+	3.6 -> Execute #mount /dev/sdb2 /mnt/UUI (monta a partição persistente para uso)
+	3.7 -> Execute #echo "/ union" >> /mnt/UUI/persistence.conf (cria e escreve no arquivo .cof a configuração para persistence)
+	3.8 -> Execute #umont /dev/sdb2 (desmonta a partição
+	3.9 -> Exxecute #reboot (reinicie)
+	3.10 -> Ao Iniciar o grub selecione Live USB Persistence
+
+
+//Documento com o proposito de propagar esse método de utilização persistente do Kali via pendrive USB, gerar informação e contribuir para a comunidade Linux.
